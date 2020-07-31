@@ -1,4 +1,3 @@
-import React from 'react'
 import firebase from '../../configs/firebase'
 
 const firestore = firebase.firestore()
@@ -25,20 +24,20 @@ export default class UserController {
   delete = async (id) => {
     try {
 
-      let users = await firestore.collection('Users').where('id', '==', id)
+      let users = await firestore.collection('Users').where('id', '==', id).get()
 
-      users.delete()
+      users.forEach(res => res.ref.delete())
 
     } catch (err) {
       return Promise.reject(err)
     }
   }
 
-  update = async (id, user) => {
+  update = async (id) => {
     try {
 
       let users = await firestore.collection('Users').where('id', '==', id).get()
-      users.forEach(res => res.ref.update(user))
+      users.forEach(res => res.ref.update(id))
 
     } catch (err) {
       return Promise.reject(err)
@@ -52,7 +51,6 @@ export default class UserController {
       let users = await firestore.collection('Users').get()
       users.forEach(data => response.push(data.data()))
 
-      console.log(response)
       return response
 
     } catch (err) {
