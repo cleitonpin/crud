@@ -1,7 +1,7 @@
 import firebase from '../../configs/firebase'
 
 const firestore = firebase.firestore()
-// ei ei ei quem bota muito espaço é top !!gay
+
 export default class UserController {
 
 
@@ -37,7 +37,7 @@ export default class UserController {
     try {
 
       let users = await firestore.collection('Users').where('id', '==', id).get()
-      users.forEach(res => res.ref.update(id))
+      users.forEach(res => res.ref.update(user))
 
     } catch (err) {
       return Promise.reject(err)
