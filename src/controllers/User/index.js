@@ -33,7 +33,7 @@ export default class UserController {
     }
   }
 
-  update = async (id) => {
+  update = async (id, user) => {
     try {
 
       let users = await firestore.collection('Users').where('id', '==', id).get()
